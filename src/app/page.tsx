@@ -7,18 +7,23 @@ import { RandomFox  } from './components/RandomFox'
 const inter = Inter({ subsets: ['latin'] })
 
 // Generate a random function
-const random = () => Math.floor(Math.random() * 123) + 1;
+const random = () => Math.floor(Math.random() * 123) + 1
+
+type ImageItem = {id: string; url: string}
+
+// Generate Unique Id's
+const generateId = () => Math.random().toString(36).substring(2,9)
 
 export default function Home() {
   // Creando un estado de imagenes cambiando el tipo generico a un array de string
   // Agregando tips al hook de react
-  const [images, setImages] = useState<string[]>([
-    `https://randomfox.ca/images/${random()}.jpg`,
-    `https://randomfox.ca/images/${random()}.jpg`,
-    `https://randomfox.ca/images/${random()}.jpg`,
-    `https://randomfox.ca/images/${random()}.jpg`,
-    `https://randomfox.ca/images/${random()}.jpg`,
-    `https://randomfox.ca/images/${random()}.jpg`
+  const [images, setImages] = useState<Array<ImageItem>>([
+    { id: generateId(), url: `https://randomfox.ca/images/${random()}.jpg` },
+    { id: generateId(), url: `https://randomfox.ca/images/${random()}.jpg` },
+    { id: generateId(), url: `https://randomfox.ca/images/${random()}.jpg` },
+    { id: generateId(), url: `https://randomfox.ca/images/${random()}.jpg` },
+    { id: generateId(), url: `https://randomfox.ca/images/${random()}.jpg` },
+    { id: generateId(), url: `https://randomfox.ca/images/${random()}.jpg` },
   ])
 
   return (
@@ -28,10 +33,10 @@ export default function Home() {
       </h1>
 
       {/* Ciclamos a travez de imagenes colocando nuestro componente con la imagen a la que corresponde */}
-      { images.map((image, index) => (
-        <div key={index} className="p-4">
+      { images.map(({id, url}) => (
+        <div key={id} className="p-4">
           {/* Crea URL de imagen */}
-          <RandomFox image={image} />
+          <RandomFox image={url} />
         </div>
       )) }
     </main>
