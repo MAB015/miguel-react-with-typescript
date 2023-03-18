@@ -6,21 +6,19 @@
 //     return <img />
 // }
 
+// Crea un objeto tipo Props
+type Props = { image: string };
 
-
-// Generate a random function
-const random = () => Math.floor(Math.random() * 123) + 1;
 
 // Tipado a retorno de funcion
-// STANDART
-export const RandomFox = (): JSX.Element => {
-    // Crea URL de imagen
-    const image: string = `https://randomfox.ca/images/${random()}.jpg`;
+// STANDART FORM 
+// - Calling the object Props as parameter and Destructuring the object
+export const RandomFox = ( { image }: Props ): JSX.Element => {
     // Retorma Imagen
     return <img 
                 width={320}
                 height="auto"
-                src={image}
+                src={ image }
                 className="rounded"
                 alt="Fox Random"
             />;
