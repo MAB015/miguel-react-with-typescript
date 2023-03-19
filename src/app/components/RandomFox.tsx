@@ -9,7 +9,10 @@ import { ImgHTMLAttributes } from 'react'
 // }
 
 // Crea un objeto tipo Props
-type LazyImageProps = { src: string }
+type LazyImageProps = {
+    src: string,
+    onLazyLoad?: (( node: HTMLImageElement) => void)
+}
 
 type ImageNative = ImgHTMLAttributes<HTMLImageElement>
 
