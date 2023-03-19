@@ -14,7 +14,7 @@ type Props = { image: string }
 // Tipado a retorno de funcion
 // STANDART FORM 
 // - Calling the object Props as parameter and Destructuring the object
-export const RandomFox = ( { image }: Props ): JSX.Element => {
+export const LazyImage = ( { image }: Props ): JSX.Element => {
     const node = useRef<HTMLImageElement>(null)
 
     // Estado de imagen

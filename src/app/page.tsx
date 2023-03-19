@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { MouseEventHandler } from 'react'
 import { Inter } from 'next/font/google'
-import { RandomFox  } from './components/RandomFox'
+import { LazyImage  } from './components/RandomFox'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -53,7 +53,7 @@ export default function Home() {
       { images.map(({id, url}) => (
         <div key={id} className="p-4">
           {/* Crea URL de imagen */}
-          <RandomFox image={url} />
+          <LazyImage image={url} />
         </div>
       )) }
     </main>
