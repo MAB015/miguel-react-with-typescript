@@ -53,7 +53,14 @@ export default function Home() {
       { images.map(({id, url}) => (
         <div key={id} className="p-4">
           {/* Crea URL de imagen */}
-          <LazyImage image={url} />
+          <LazyImage
+            src={url}
+            width={320}
+            height="auto"
+            className="rounded bg-gray-300"
+            title="Random Fox"
+            onClick={()=> console.log("Hola")}
+          />
         </div>
       )) }
     </main>

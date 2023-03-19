@@ -1,6 +1,7 @@
 // import type { FunctionComponent, FC } from "react"
 
 import { useRef, useEffect, useState } from 'react'
+import { ImgHTMLAttributes } from 'react'
 
 // // Implicito
 // export const RandomFox = () => {
@@ -8,17 +9,20 @@ import { useRef, useEffect, useState } from 'react'
 // }
 
 // Crea un objeto tipo Props
-type Props = { image: string }
+type LazyImageProps = { src: string }
 
+type ImageNative = ImgHTMLAttributes<HTMLImageElement>
+
+type Props = LazyImageProps & ImageNative
 
 // Tipado a retorno de funcion
 // STANDART FORM 
 // - Calling the object Props as parameter and Destructuring the object
-export const LazyImage = ( { image }: Props ): JSX.Element => {
+export const LazyImage = ( { src, ...imgProps }: Props  ): JSX.Element => {
     const node = useRef<HTMLImageElement>(null)
 
     // Estado de imagen
-    const [src, setsrc] = useState(
+    const [currentSrc, setCurrentSrc] = useState(
         "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjMyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
     )
 
@@ -28,7 +32,7 @@ export const LazyImage = ( { image }: Props ): JSX.Element => {
             entries.forEach((entry) => {
                 // onIntersection --> conole.log
                 if (entry.isIntersecting) {
-                    setsrc(image)
+                    setCurrentSrc(src)
                 }
             })
         })
@@ -41,18 +45,15 @@ export const LazyImage = ( { image }: Props ): JSX.Element => {
         return () => {
             observer.disconnect()
         }
-    }, [image])
+    }, [src])
         
 
     
     // Retorma Imagen
     return <img 
-                width={320}
-                height="auto"
-                src={ src }
-                className="rounded bg-gray-300"
-                alt="Fox Random"
                 ref={node}
+                src={ src }
+                {...imgProps}
             />
 }
 // {"image":"https:\/\/randomfox.ca\/images\/68.jpg","link":"https:\/\/randomfox.ca\/?i=68"}
