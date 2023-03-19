@@ -21,7 +21,7 @@ type Props = LazyImageProps & ImageNative
 // Tipado a retorno de funcion
 // STANDART FORM 
 // - Calling the object Props as parameter and Destructuring the object
-export const LazyImage = ( { src, ...imgProps }: Props  ): JSX.Element => {
+export const LazyImage = ( { src, onLazyLoad, ...imgProps }: Props  ): JSX.Element => {
     const node = useRef<HTMLImageElement>(null)
 
     // Estado de imagen
@@ -36,9 +36,13 @@ export const LazyImage = ( { src, ...imgProps }: Props  ): JSX.Element => {
                 // onIntersection --> conole.log
                 if (entry.isIntersecting) {
                     setCurrentSrc(src)
+                    onLazyLoad && onLazyLoad(entry.target as HTMLImageElement)
                 }
             })
         })
+
+        
+
         // Observe node
         if(node.current){
             observer.observe(node.current);
@@ -55,7 +59,7 @@ export const LazyImage = ( { src, ...imgProps }: Props  ): JSX.Element => {
     // Retorma Imagen
     return <img 
                 ref={node}
-                src={ src }
+                src={ currentSrc }
                 {...imgProps}
             />
 }

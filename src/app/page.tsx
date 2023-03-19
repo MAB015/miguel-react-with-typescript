@@ -4,14 +4,12 @@ import { useState } from 'react'
 import { MouseEventHandler } from 'react'
 import { Inter } from 'next/font/google'
 import { LazyImage  } from './components/RandomFox'
+import { random } from 'Lodash'
 
 const inter = Inter({ subsets: ['latin'] })
 
 // Generate a random function
-const random = () => Math.floor(Math.random() * 123) + 1
-
-// Creating the ImageItem Type
-type ImageItem = {id: string; url: string}
+const myRandom = () => random(1, 123)
 
 // Generate Unique Id's
 const generateId = () => Math.random().toString(36).substring(2,9)
@@ -19,7 +17,7 @@ const generateId = () => Math.random().toString(36).substring(2,9)
 export default function Home() {
   // Creando un estado de imagenes cambiando el tipo generico a un array de string
   // Agregando tips al hook de react
-  const [images, setImages] = useState<Array<ImageItem>>([])
+  const [images, setImages] = useState<Array<IImageItem>>([])
 
   // Adding the type MouseEventHandler to have the exact type of the events
   const addNewFox: MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -27,9 +25,9 @@ export default function Home() {
     const target = event.target
 
     // Generating the Image
-    const newImageItem: ImageItem = {
+    const newImageItem: IImageItem = {
       id: generateId(),
-      url: `https://randomfox.ca/images/${random()}.jpg`,
+      url: `https://randomfox.ca/images/${myRandom()}.jpg`,
     }
 
     // Changing the status of the Image
@@ -37,6 +35,7 @@ export default function Home() {
       ...images,
       newImageItem
     ])
+    window.plausible("add_Fox")
   }
 
   return (
