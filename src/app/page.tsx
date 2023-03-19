@@ -34,6 +34,7 @@ export default function Home() {
 
     // Changing the status of the Image
     setImages([
+      ...images,
       newImageItem
     ])
   }
